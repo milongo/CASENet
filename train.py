@@ -63,10 +63,10 @@ parser.add_argument('--size', default=400, type=int,
                     help='image size')
 
 args = parser.parse_args()
+
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 torch.manual_seed(args.seed)
-if args.cuda:
-    torch.cuda.manual_seed(args.seed)
+
 start_epoch = args.start_epoch
 image_size = (args.size, args.size)
 
@@ -80,9 +80,19 @@ train_loader = torch.utils.data.DataLoader(
 
 net = resnet.resnet101()
 criterion = MultiLLFunction()
+
 if args.cuda:
     net.cuda()
     criterion.cuda()
+
+if args.cuda:
+    torch.cuda.manual_seed(args.seed)
+
+if not osp.exists(args.save_folder):
+    os.makedirs(args.save_folder)
+
+if osp.exists(args.snapshot):
+    net.load_state_dict(torch.load(args.snapshot))
 
 optimizer = optim.Adam(net.parameters(), lr=args.lr)
 scheduler = MultiStepLR(
@@ -109,7 +119,6 @@ def train(epoch):
         out_masks = net(im, label)
         out_masks = out_masks.cuda()
         loss = criterion(out_masks, label)
-        loss = loss.cuda()
         loss.backward()
         optimizer.step()
         total_loss.update(loss.data[0], im.size(0))

@@ -145,7 +145,7 @@ class ResNet(nn.Module):
 
     def _sliced_concat(self, res1, res2, res3, res5, num_classes):
         out_dim = num_classes * 4
-        out_tensor = Variable(torch.FloatTensor(res1.size(0), out_dim, res1.size(2), res1.size(3)))
+        out_tensor = Variable(torch.FloatTensor(res1.size(0), out_dim, res1.size(2), res1.size(3))).cuda()
         for i in range(0, out_dim, 4):
             class_num = 0
             out_tensor[:, i, :, :] = res1[:, class_num, :, :]
@@ -159,8 +159,8 @@ class ResNet(nn.Module):
     def _fused_class(self, sliced_cat, groups):
         in_channels = sliced_cat.size(1)
         out_channels = sliced_cat.size(1)//groups
-        conv = nn.Conv2d(in_channels, out_channels, 1, groups=groups)
-        out = conv(sliced_cat)
+        conv = nn.Conv2d(in_channels, out_channels, 1, groups=groups).cuda()
+        out = conv(sliced_cat).cuda()
         return out
 
     def forward(self, x, labels):

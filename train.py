@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('--data-root', type=str, default='/home/ebotero/SSD3/contours/SBD',
                     help='root path')
-parser.add_argument('--data-txt', type=str, default='/home/ebotero/SSD3/contours/SBD/1/train_pos_contours.txt',
+parser.add_argument('--data-txt', type=str, default='train_contours.txt',
                     help='path to train txt file containing image and ground truth paths')
 parser.add_argument('--save-folder', type=str, default="weights/")
 parser.add_argument('--snapshot', type=str, default='weights/casenet_weights.pth',
@@ -75,7 +75,7 @@ train_loader = torch.utils.data.DataLoader(
                   flist=args.data_txt,
                   transform=Compose([Scale((args.size, args.size)),
                                      ToTensor()])),
-    batch_size=1, shuffle=True,
+    batch_size=args.batch_size, shuffle=True,
     num_workers=4, pin_memory=True)
 
 net = resnet.resnet101()

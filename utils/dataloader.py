@@ -6,6 +6,7 @@ import os.path
 from skimage import io
 import numpy as np
 
+# Image file list reader function taken from https://github.com/pytorch/vision/issues/81
 
 def default_loader(path, gray=False):
     if gray:

@@ -1,3 +1,5 @@
+# ResNet loading functions taken from Torchvision
+
 import torch.nn as nn
 import torch
 import math

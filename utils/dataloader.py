@@ -14,13 +14,13 @@ def default_loader(path, gray=False):
         return Image.open(path).convert('RGB')
 
 
-def default_flist_reader(root):
+def default_flist_reader(root, flist):
     """
     flist format: impath label\nimpath label\n ...(same to caffe's filelist)
     """
     imlist = []
     for i in range(1, 21):
-        flist = os.path.join(root, str(i), 'train_contours.txt')
+        flist = os.path.join(root, str(i), flist)
 
         with open(flist, 'r') as rf:
             for line in rf.readlines():
@@ -37,7 +37,7 @@ class ImageFilelist(data.Dataset):
                  loader=default_loader):
 
         self.root = root
-        self.imlist = flist_reader(root)
+        self.imlist = flist_reader(root, flist)
         self.transform = transform
         self.target_transform = transform
         self.loader = loader

@@ -1,6 +1,6 @@
 **Pytorch CASENet implementation**
 
-This repository includes a PyTorch implementation of *CASENet: Deep Category-Aware Semantic Edge Detection* (https://arxiv.org/abs/1705.09759)
+This repository includes an untested PyTorch implementation of *CASENet: Deep Category-Aware Semantic Edge Detection* (https://arxiv.org/abs/1705.09759).
 
 **Usage:**
 
@@ -16,3 +16,8 @@ To execute this, you must have Python 3.6.*, [PyTorch](http://pytorch.org/), [sc
 conda install matplotlib numpy scikit-image
 conda install pytorch torchvision cuda80 -c soumith
 ```
+
+**To-do**
+
+- [ ] train and test on SBD
+- [ ] train and test on Cityscapes

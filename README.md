@@ -4,9 +4,7 @@ This repository includes an untested PyTorch implementation of *CASENet: Deep Ca
 
 **Usage:**
 
-Download and extract the training dataset from the following link:
 
-https://drive.google.com/open?id=1WAxUz7Dd9_MoYEDonoSyNCPc4wA36OwR
 
 Run ``train.py`` with argument ``--data-root`` pointing to the SBD root directory
 
@@ -19,5 +17,6 @@ conda install pytorch torchvision cuda80 -c soumith
 
 **To-do**
 
+- [ ] script for downloading and preparing dataset
 - [ ] train and test on SBD
 - [ ] train and test on Cityscapes
